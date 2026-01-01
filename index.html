@@ -1,40 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <title>Atendimento Online</title>
-</head>
-<body>
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<script type="module">
+	import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
-<h2>Atendimento Virtual</h2>
-
-<div id="chat"></div>
-
-<input id="msg" placeholder="Digite sua mensagem" />
-<button onclick="enviar()">Enviar</button>
-
-<script>
-  const WEBHOOK_URL = "COLE_AQUI_O_WEBHOOK_DO_N8N";
-
-  async function enviar() {
-    const campo = document.getElementById("msg");
-    const texto = campo.value;
-
-    if (!texto) return;
-
-    document.getElementById("chat").innerHTML += "<p><b>Você:</b> " + texto + "</p>";
-    campo.value = "";
-
-    const resposta = await fetch(WEBHOOK_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ mensagem: texto })
-    });
-
-    const dados = await resposta.json();
-    document.getElementById("chat").innerHTML += "<p><b>Atendimento:</b> " + dados.resposta + "</p>";
-  }
+	createChat({
+		webhookUrl: 'https://n8n.fluxos.dev.br/webhook/d27bac12-fd7b-4b1f-9bd3-6bc97ff1b6b1/chat'
+	});
 </script>
-
-</body>
-</html>
